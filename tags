@@ -1,0 +1,52 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+container	client/index.html	/^<body class="container">$/;"	c
+text-center	client/index.html	/^  <h1 class="text-center">Negociações<\/h1>$/;"	c
+form	client/index.html	/^  <form class="form" onsubmit="negociacaoController.adiciona(event)">$/;"	c
+form-group	client/index.html	/^    <div class="form-group">$/;"	c
+data	client/index.html	/^      <input type="date" id="data" class="form-control" required autofocus\/>$/;"	i
+form-control	client/index.html	/^      <input type="date" id="data" class="form-control" required autofocus\/>$/;"	c
+form-group	client/index.html	/^    <div class="form-group">$/;"	c
+quantidade	client/index.html	/^      <input type="number" min="1" step="1" id="quantidade" class="form-control" value="1" required\/>$/;"	i
+form-control	client/index.html	/^      <input type="number" min="1" step="1" id="quantidade" class="form-control" value="1" required\/>$/;"	c
+form-group	client/index.html	/^    <div class="form-group">$/;"	c
+valor	client/index.html	/^      <input id="valor" type="number" class="form-control"  min="0.01" step="0.01" value="0.0" required \/>$/;"	i
+form-control	client/index.html	/^      <input id="valor" type="number" class="form-control"  min="0.01" step="0.01" value="0.0" required \/>$/;"	c
+text-center	client/index.html	/^  <div class="text-center">$/;"	c
+NegociacaoController	client/js/app/controllers/NegociacaoController.js	/^class NegociacaoController {$/;"	c
+constructor	client/js/app/controllers/NegociacaoController.js	/^  constructor() {$/;"	f
+Data	client/js/app/controllers/NegociacaoController.js	/^    this._$inputData = $('#data');$/;"	c
+Quantidade	client/js/app/controllers/NegociacaoController.js	/^    this._$inputQuantidade = $('#quantidade');$/;"	c
+Valor	client/js/app/controllers/NegociacaoController.js	/^    this._$inputValor = $('#valor');$/;"	c
+adiciona	client/js/app/controllers/NegociacaoController.js	/^  adiciona(event) {$/;"	f
+Negociacao	client/js/app/models/Negociacao.js	/^class Negociacao {$/;"	c
+constructor	client/js/app/models/Negociacao.js	/^  constructor(data, quantidade, valor) {$/;"	f
+data	client/js/app/models/Negociacao.js	/^  get data() {$/;"	f
+quantidade	client/js/app/models/Negociacao.js	/^  get quantidade() {$/;"	f
+valor	client/js/app/models/Negociacao.js	/^  get valor() {$/;"	f
+volume	client/js/app/models/Negociacao.js	/^  get volume() {$/;"	f
+listen	server/server.js	/^http.createServer(app).listen(3000, function() {$/;"	f
+exports	server/app/routes/index.js	/^module.exports  = function(app) {$/;"	f
+function	server/app/routes/index.js	/^module.exports  = function(app) {$/;"	f
+Semana	server/app/api/index.js	/^api.listaSemana = function(req, res) {$/;"	c
+listaSemana	server/app/api/index.js	/^api.listaSemana = function(req, res) {$/;"	f
+function	server/app/api/index.js	/^api.listaSemana = function(req, res) {$/;"	f
+filter	server/app/api/index.js	/^    var negociacoesAtuais = negociacoes.filter(function(negociacao) {$/;"	f
+Anterior	server/app/api/index.js	/^api.listaAnterior = function(req, res) {$/;"	c
+listaAnterior	server/app/api/index.js	/^api.listaAnterior = function(req, res) {$/;"	f
+function	server/app/api/index.js	/^api.listaAnterior = function(req, res) {$/;"	f
+filter	server/app/api/index.js	/^   var negociacoesAnteriores = negociacoes.filter(function(negociacao) {$/;"	f
+setTimeout	server/app/api/index.js	/^	setTimeout(function() {$/;"	f
+Retrasada	server/app/api/index.js	/^api.listaRetrasada = function(req, res) {$/;"	c
+listaRetrasada	server/app/api/index.js	/^api.listaRetrasada = function(req, res) {$/;"	f
+function	server/app/api/index.js	/^api.listaRetrasada = function(req, res) {$/;"	f
+filter	server/app/api/index.js	/^   var negociacoesRtrasadas = negociacoes.filter(function(negociacao) {$/;"	f
+Negociacao	server/app/api/index.js	/^api.cadastraNegociacao = function(req, res) {$/;"	c
+cadastraNegociacao	server/app/api/index.js	/^api.cadastraNegociacao = function(req, res) {$/;"	f
+function	server/app/api/index.js	/^api.cadastraNegociacao = function(req, res) {$/;"	f
+Parser	server/config/express.js	/^    ,bodyParser = require('body-parser');$/;"	c
+use	server/config/express.js	/^app.use(function(req, res, next) {$/;"	f
