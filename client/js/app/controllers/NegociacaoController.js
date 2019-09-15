@@ -1,44 +1,38 @@
+const $ = document.querySelector.bind(document);
+
 class NegociacaoController {
   constructor() {
-    const $ = document.querySelector.bind(document);
     this._$inputData = $('#data');
     this._$inputQuantidade = $('#quantidade');
     this._$inputValor = $('#valor');
     this._listaNegociacoes = this._buildListaNegociacao();
-    this._negociacoesView = new NegociacoesView($('#NegociacoesView'));
-    this._negociacoesView.update(this._listaNegociacoes);
-    this._mensagem = new Mensagem();
-    this._mensagemView = new MensagemView($('#MensagemView'))
+    this._mensagem = this._buildMenssagem();
   }
 
   _buildListaNegociacao() {
-    const self = this;
-    return new Proxy(new ListaNegociacoes(), {
-      get(target, prop, receiver) {
-        if(['adiciona', 'esvazia'].includes(prop) && typeof(target[prop]) === typeof(Function)) {
-          return function() {
-            console.log(`interceptando ${prop}`);
-            Reflect.apply(target[prop], target, arguments);
-            self._negociacoesView.update(target);
-          }
-        }
-        return Reflect.get(target, prop, receiver);
-      }
-    });
+    const model = new ListaNegociacoes();
+    const view = new NegociacoesView($('#NegociacoesView'));
+    const props = ['adiciona', 'esvazia'];
+    return new Bind(model, view, props);
+  }
+
+  _buildMenssagem() {
+    const model = new Mensagem();
+    const view = new MensagemView($('#MensagemView'));
+    const props = ['texto'];
+    return new Bind(model, view, props);
   }
 
   adiciona(event) {
     event.preventDefault();
     this._listaNegociacoes.adiciona(this._criaNegociacao());
     this._mensagem.texto = 'Negociação adicionada com sucesso';
-    this._mensagemView.update(this._mensagem);
     this._limpaFormulario();
   }
 
   apaga() {
     this._listaNegociacoes.esvazia();
     this._mensagem.texto = 'Negociações apagadas com sucesso';
-    this._mensagemView.update(this._mensagem);
   }
 
   _criaNegociacao() {
