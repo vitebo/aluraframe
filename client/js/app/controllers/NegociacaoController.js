@@ -7,12 +7,13 @@ class NegociacaoController {
     this._$inputValor = $('#valor');
     this._listaNegociacoes = this._buildListaNegociacao();
     this._mensagem = this._buildMenssagem();
+    this._ordemAtual = '';
   }
 
   _buildListaNegociacao() {
     const model = new ListaNegociacoes();
     const view = new NegociacoesView($('#NegociacoesView'));
-    const props = ['adiciona', 'esvazia'];
+    const props = ['adiciona', 'esvazia', 'ordena', 'inverteOrdem'];
     return new Bind(model, view, props);
   }
 
@@ -43,6 +44,14 @@ class NegociacaoController {
         return this._mensagem.texto = 'Negociações importadas com sucesso!';
       })
       .catch(error => this._mensagem.texto = error);
+  }
+
+  ordena(coluna) {
+    if (this._ordemAtual === coluna) {
+      return this._listaNegociacoes.inverteOrdem();
+    }
+    this._listaNegociacoes.ordena((a, b) => a[coluna] - b[coluna]);
+    this._ordemAtual = coluna;
   }
 
   _criaNegociacao() {
