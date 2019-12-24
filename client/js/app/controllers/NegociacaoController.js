@@ -8,6 +8,7 @@ class NegociacaoController {
     this._listaNegociacoes = this._buildListaNegociacao();
     this._mensagem = this._buildMenssagem();
     this._ordemAtual = '';
+    this._setupDb();
   }
 
   _buildListaNegociacao() {
@@ -24,16 +25,42 @@ class NegociacaoController {
     return new Bind(model, view, props);
   }
 
+  _setupDb() {
+    ConnectionFactory
+      .getConnection()
+      .then(connection => new NegociacaoDao(connection))
+      .then(dao => dao.listaTodos())
+      .then((negociacoes) => negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao)))
+      .catch(error => this._mensagem.texto = error);
+  }
+
   adiciona(event) {
     event.preventDefault();
-    this._listaNegociacoes.adiciona(this._criaNegociacao());
-    this._mensagem.texto = 'Negociação adicionada com sucesso';
-    this._limpaFormulario();
+    ConnectionFactory
+      .getConnection()
+      .then((connection) => {
+        const negociacao = this._criaNegociacao();
+        new NegociacaoDao(connection)
+          .adiciona(negociacao)
+          .then(() => {
+            this._listaNegociacoes.adiciona(this._criaNegociacao());
+            this._mensagem.texto = 'Negociação adicionada com sucesso';
+            this._limpaFormulario();
+          })
+      })
+      .catch(error => this._mensagem.texto = erro);
   }
 
   apaga() {
-    this._listaNegociacoes.esvazia();
-    this._mensagem.texto = 'Negociações apagadas com sucesso';
+    ConnectionFactory
+      .getConnection()
+      .then(connection => new NegociacaoDao(connection))
+      .then(dao => dao.apagarTodos())
+      .then((msg) => {
+        this._listaNegociacoes.esvazia();
+        this._mensagem.texto = msg;
+      })
+      .catch(msg => this._mensagem.texto = msg);
   }
 
   importaNegociacoes() {
