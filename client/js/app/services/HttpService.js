@@ -1,4 +1,4 @@
-class HttpService {
+export class HttpService {
   static get(url) {
     return fetch(url)
       .then(res => HttpService._handleErrors(res))

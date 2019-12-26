@@ -1,4 +1,9 @@
-class NegociacaoService {
+import { HttpService } from './HttpService.js';
+import { ConnectionFactory } from './ConnectionFactory.js';
+import { NegociacaoDao } from '../dao/NegociacaoDao.js';
+import { Negociacao } from '../models/Negociacao.js';
+
+export class NegociacaoService {
   obterNegociacoes() {
     return Promise.all([
       this.obterNegociacoesDaSemana(),

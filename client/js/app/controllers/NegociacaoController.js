@@ -1,6 +1,15 @@
+import { ListaNegociacoes } from '../models/ListaNegociacoes.js';
+import { Negociacao } from '../models/Negociacao.js';
+import { Mensagem } from '../models/Mensagem.js';
+import { NegociacoesView } from '../views/NegociacoesView.js';
+import { MensagemView } from '../views/MensagemView.js';
+import { Bind } from '../helpers/Bind.js';
+import { DateHelper } from '../helpers/DateHelper.js';
+import { NegociacaoService } from '../services/NegociacaoService.js';
+
 const $ = document.querySelector.bind(document);
 
-class NegociacaoController {
+export class NegociacaoController {
   constructor() {
     this._$inputData = $('#data');
     this._$inputQuantidade = $('#quantidade');
@@ -15,12 +24,22 @@ class NegociacaoController {
   _init() {
     this._setupDb();
     this._importaNegociacoes();
+    this._setupForm();
+  }
+
+  _setupForm() {
+    $('[data-js="form"]').addEventListener('submit', this.adiciona.bind(this));
+    $('[data-js="apaga"]').addEventListener('click', this.apaga.bind(this));
   }
 
   _buildListaNegociacao() {
     const model = new ListaNegociacoes();
     const view = new NegociacoesView($('#NegociacoesView'));
     const props = ['adiciona', 'esvazia', 'ordena', 'inverteOrdem'];
+    view.addEventListener('click', (event) => {
+      const value = event.target.dataset['jsOrdena'];
+      if (value) this.ordena(value);
+    });
     return new Bind(model, view, props);
   }
 

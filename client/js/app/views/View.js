@@ -1,4 +1,4 @@
-class View {
+export class View {
   constructor($elemento) {
     this._$elemento = $elemento;
   }
@@ -9,5 +9,14 @@ class View {
 
   template() {
     throw new Error('O método template deve ser implementado');
+  }
+
+  get $elemento() {
+    return this._$elemento;
+  }
+
+  addEventListener(event, callback) {
+    this.$elemento.addEventListener(event, callback);
+    return this;
   }
 }
