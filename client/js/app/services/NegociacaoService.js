@@ -10,7 +10,7 @@ class NegociacaoService {
   }
 
   obterNegociacoesDaSemana() {
-    return new Promise((resolve, rejact) => {
+    return new Promise((resolve, reject) => {
       HttpService
         .get('negociacoes/semana')
         .then(negociacoes => resolve(this._convert(negociacoes)))
@@ -19,7 +19,7 @@ class NegociacaoService {
   }
 
   obterNegociacoesDaSemanaAnterior() {
-    return new Promise((resolve, rejact) => {
+    return new Promise((resolve, reject) => {
       HttpService
         .get('negociacoes/anterior')
         .then(negociacoes => resolve(this._convert(negociacoes)))
@@ -28,7 +28,7 @@ class NegociacaoService {
   }
 
   obterNegociacoesDaSemanaRetrasada() {
-    return new Promise((resolve, rejact) => {
+    return new Promise((resolve, reject) => {
       HttpService
         .get('negociacoes/retrasada')
         .then(negociacoes => resolve(this._convert(negociacoes)))
