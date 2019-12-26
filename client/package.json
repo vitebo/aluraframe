@@ -1,0 +1,16 @@
+{
+  "name": "aluraframe",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "vitebo",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "babel js/app -d js/dist --source-maps",
+    "watch": "yarn build -- --watch"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  }
+}
