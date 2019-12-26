@@ -13,8 +13,8 @@ class NegociacaoService {
     return new Promise((resolve, rejact) => {
       HttpService
         .get('negociacoes/semana')
-        .then(negociacoes => resolve(this.convert(negociacoes)))
-        .catch(error => reject(this.messageError('semana')));
+        .then(negociacoes => resolve(this._convert(negociacoes)))
+        .catch(error => reject(this._messageError('semana')));
     });
   }
 
@@ -22,8 +22,8 @@ class NegociacaoService {
     return new Promise((resolve, rejact) => {
       HttpService
         .get('negociacoes/anterior')
-        .then(negociacoes => resolve(this.convert(negociacoes)))
-        .catch(error => reject(this.messageError('semana anterior')));
+        .then(negociacoes => resolve(this._convert(negociacoes)))
+        .catch(error => reject(this._messageError('semana anterior')));
     });
   }
 
@@ -31,17 +31,51 @@ class NegociacaoService {
     return new Promise((resolve, rejact) => {
       HttpService
         .get('negociacoes/retrasada')
-        .then(negociacoes => resolve(this.convert(negociacoes)))
-        .catch(error => reject(this.messageError('semana retrasada')));
+        .then(negociacoes => resolve(this._convert(negociacoes)))
+        .catch(error => reject(this._messageError('semana retrasada')));
     });
   }
 
-  convert(negociacoes) {
+  cadastrar(negociacao) {
+    return this._dao()
+      .then(dao => dao.adiciona(negociacao))
+      .then(() => 'Negociação cadastrada com sucesso')
+      .catch(error => 'Não foi possivel adicionar a negociação');
+  }
+
+  lista() {
+    return this._dao()
+      .then(dao => dao.listaTodos())
+      .catch(error => 'Não foi possivel obter as negociações');
+  }
+
+  apaga() {
+    return this._dao().then(dao => dao.apagarTodos());
+  }
+
+  importar(listaAtual) {
+    return this.obterNegociacoes()
+      .then((negociacoes) => {
+        return negociacoes.filter((negociacao) => {
+          return !listaAtual.some((negociacaoExistente) => {
+            return JSON.stringify(negociacao) === JSON.stringify(negociacaoExistente);
+          })
+        })
+      })
+  }
+
+  _dao() {
+    return ConnectionFactory
+      .getConnection()
+      .then(connection => new NegociacaoDao(connection));
+  }
+
+  _convert(negociacoes) {
     return negociacoes
       .map(({ data, quantidade, valor }) => new Negociacao(new Date(data), quantidade, valor));
   }
 
-  messageError(endpoint) {
+  _messageError(endpoint) {
     return `Não foi possivel obter as negociações da ${endpoint}`;
   }
 }
